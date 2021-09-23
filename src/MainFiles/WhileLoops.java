@@ -8,13 +8,13 @@ import java.util.Scanner;
 public class WhileLoops {
 
     public static void main(String[] args) {
-        //delay (start of segment)
+        // delay (start of segment)
 
-        //try{
-        //    Thread.sleep(1000);
-        //} catch(Exception e){} 
-        
-        //delay (end of segment)
+        // try{
+        // Thread.sleep(1000);
+        // } catch(Exception e){}
+
+        // delay (end of segment)
         Scanner input = new Scanner(System.in);
 
         // count from 1 to 10
@@ -22,11 +22,11 @@ public class WhileLoops {
         int sum = 0;
 
         while (count <= 10) {
-            //print out count
+            // print out count
             System.out.println(count);
             // add number to the sum
             sum = sum + count;
-            //add one to count
+            // add one to count
             count = count + 1;
         }
 
@@ -39,5 +39,6 @@ public class WhileLoops {
             System.out.println("Please enter a number between 1 and 10");
             number = input.nextInt();
         } while (number < 1 || number > 10);
+        input.close();
     }
 }

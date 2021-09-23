@@ -19,14 +19,14 @@ public class PythagoreanTripples {
         double number3 = input.nextInt();
 
         System.out.println(number1 + "," + number2 + "," + number3);
-        
-        if (Math.pow(number1,2) + Math.pow(number2, 2) == Math.pow(number3, 2)){
+
+        if (Math.pow(number1, 2) + Math.pow(number2, 2) == Math.pow(number3, 2)) {
             System.out.println(number1 + "² + " + number2 + "² = " + number3 + "²");
-        } else if(Math.pow(number3, 2) - Math.pow(number1,2) == Math.pow(number2, 2)){
+        } else if (Math.pow(number3, 2) - Math.pow(number1, 2) == Math.pow(number2, 2)) {
             System.out.println(number2 + "² + " + number3 + "² = " + number1 + "²");
-        } else if(Math.pow(number1,2) - Math.pow(number3, 2) == Math.pow(number2, 2)){
+        } else if (Math.pow(number1, 2) - Math.pow(number3, 2) == Math.pow(number2, 2)) {
             System.out.println(number2 + "² + " + number3 + "² = " + number1 + "²");
         }
+        input.close();
     }
 }
-

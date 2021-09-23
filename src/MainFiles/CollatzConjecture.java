@@ -21,5 +21,6 @@ public class CollatzConjecture {
                 count = 3 * count + 1;
             }
         }
+        input.close();
     }
 }

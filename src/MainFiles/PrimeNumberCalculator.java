@@ -29,5 +29,6 @@ public class PrimeNumberCalculator {
         if (stop == 0) {
             System.out.println("This number is a prime number");
         }
+        input.close();
     }
 }
