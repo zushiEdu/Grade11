@@ -1,23 +1,13 @@
 
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author hubee8329
  */
 public class PrimeNumberCalculator {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
+
         // A prime number is something that can only be divided by itself and 1
         // 1. Get number
         // 2. Loop through multiples from 2 to itself to see if it is divisible by anything other than itself and 1
