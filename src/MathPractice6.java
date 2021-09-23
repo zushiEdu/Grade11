@@ -16,6 +16,8 @@ public class MathPractice6 {
 
         if (num1 >= num2) {
             System.out.println("Your numbers in ascending order are " + num2 + ", " + num1);
+        } else {
+            System.out.println("Your numbers in ascending order are" + num1 + ", " + num2);
         }
 
         input.close();
