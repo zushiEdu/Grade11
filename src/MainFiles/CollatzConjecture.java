@@ -1,3 +1,5 @@
+package MainFiles;
+
 import java.util.Scanner;
 
 /**

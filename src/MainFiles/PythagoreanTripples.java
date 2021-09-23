@@ -1,3 +1,4 @@
+package MainFiles;
 
 import java.util.Scanner;
 import java.lang.Math;
@@ -9,7 +10,6 @@ import java.lang.Math;
 public class PythagoreanTripples {
 
     public static void main(String[] args) {
-        // TODO code application logic here
 
         Scanner input = new Scanner(System.in);
 
