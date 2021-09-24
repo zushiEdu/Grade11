@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class PrimeNumberCalculator {
 
     public static void main(String[] args) {
+        //prime number checker
+        
         System.out.println("Which number would you like to check?");
 
         Scanner input = new Scanner(System.in);
