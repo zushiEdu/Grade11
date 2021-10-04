@@ -87,35 +87,44 @@ public class DrawingPractice extends JComponent implements ActionListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
+        // COLORS
         Color woodBrown = new Color(98, 52, 18);
         Color skyBlue = new Color(skyR, skyG, skyB);
         Color grass = new Color(0, 100, 0);
 
+        // COMPLETE BACKGROUND
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 0, 500, 500);
 
+        //SKY
         g.setColor(skyBlue);
         g.fillRect(25, 25, 450, 450);
 
+        //SUN
         g.setColor(Color.yellow);
         g.fillOval(50, sunYPos, 75, 75);
 
+        //SUN COVERS
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 15, 500, 15);
+        g.fillRect(0, 0, 500, 25);
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 400, 500, 500);
 
+        // TERRAIN START
         int[] xPoints = {25, 25, 475, 475};
         int[] yPoints = {400, 475, 475, 360};
 
         g.setColor(grass);
         g.fillPolygon(xPoints, yPoints, 4);
+        // TERRAIN END
 
+        // TREE START
         g.setColor(woodBrown);
         g.fillRect(300, 260, 30, 120);
 
         g.setColor(grass);
         g.fillOval(275, 220, 80, 80);
+        // TREE END
 
         // GAME DRAWING ENDS HERE
     }
@@ -131,17 +140,39 @@ public class DrawingPractice extends JComponent implements ActionListener {
     // In here is where all the logic for my game will go
     public void loop() {
 
-        if (skyR > 0) {
-            skyR--;
-        }
-        if (skyG > 0) {
-            skyG--;
-        }
-
         sunYPos++;
 
+        // When sun is in the position to start setting, make the background go darker
+        if (sunYPos >= 50) {
+            if (skyR > 0) {
+                skyR--;
+            }
+            if (skyG > 0) {
+                skyG--;
+            }
+            if (skyG == skyR) {
+                if (skyB > 50) {
+                    skyB--;
+                }
+            }
+        }
+
+        // Reset the sun to the sunrise position when sunset is done
         if (sunYPos > HEIGHT) {
-            sunYPos = 0;
+            sunYPos = -400;
+        }
+
+        // When the sun is in the sunrise position make the sky brighten up
+        if (sunYPos < 0) {
+            if (skyR <= 135 && skyB == 236 && skyG >= 72) {
+                skyR++;
+            }
+            if (skyG <= 206 && skyB == 236) {
+                skyG++;
+            }
+            if (skyB <= 235) {
+                skyB++;
+            }
         }
     }
 
