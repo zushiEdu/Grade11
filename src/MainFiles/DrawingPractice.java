@@ -21,8 +21,8 @@ import javax.swing.Timer;
 public class DrawingPractice extends JComponent implements ActionListener {
 
     // Height and Width of our game
-    static final int WIDTH = 512;
-    static final int HEIGHT = 512;
+    static final int WIDTH = 500;
+    static final int HEIGHT = 500;
 
     //Title of the window
     String title = "Drawing";
@@ -32,21 +32,21 @@ public class DrawingPractice extends JComponent implements ActionListener {
     // you just need to select an approproate framerate
     int desiredFPS = 60;
     int desiredTime = Math.round((1000 / desiredFPS));
-    
+
     // timer used to run the game loop
     // this is what keeps our time running smoothly :)
     Timer gameTimer;
 
     // YOUR GAME VARIABLES WOULD GO HERE
-    
-
+    int sunYPos = 50;
+    int skyR = 135;
+    int skyG = 206;
+    int skyB = 235;
 
     // GAME VARIABLES END HERE    
-
-    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public DrawingPractice(){
+    public DrawingPractice() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -68,12 +68,12 @@ public class DrawingPractice extends JComponent implements ActionListener {
         this.addMouseMotionListener(m);
         this.addMouseWheelListener(m);
         this.addMouseListener(m);
-        
+
         // Set things up for the game at startup
         setup();
 
-       // Start the game loop
-        gameTimer = new Timer(desiredTime,this);
+        // Start the game loop
+        gameTimer = new Timer(desiredTime, this);
         gameTimer.setRepeats(true);
         gameTimer.start();
     }
@@ -87,7 +87,36 @@ public class DrawingPractice extends JComponent implements ActionListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-        
+        Color woodBrown = new Color(98, 52, 18);
+        Color skyBlue = new Color(skyR, skyG, skyB);
+        Color grass = new Color(0, 100, 0);
+
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(0, 0, 500, 500);
+
+        g.setColor(skyBlue);
+        g.fillRect(25, 25, 450, 450);
+
+        g.setColor(Color.yellow);
+        g.fillOval(50, sunYPos, 75, 75);
+
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(0, 15, 500, 15);
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(0, 400, 500, 500);
+
+        int[] xPoints = {25, 25, 475, 475};
+        int[] yPoints = {400, 475, 475, 360};
+
+        g.setColor(grass);
+        g.fillPolygon(xPoints, yPoints, 4);
+
+        g.setColor(woodBrown);
+        g.fillRect(300, 260, 30, 120);
+
+        g.setColor(grass);
+        g.fillOval(275, 220, 80, 80);
+
         // GAME DRAWING ENDS HERE
     }
 
@@ -101,7 +130,19 @@ public class DrawingPractice extends JComponent implements ActionListener {
     // The main game loop
     // In here is where all the logic for my game will go
     public void loop() {
-        
+
+        if (skyR > 0) {
+            skyR--;
+        }
+        if (skyG > 0) {
+            skyG--;
+        }
+
+        sunYPos++;
+
+        if (sunYPos > HEIGHT) {
+            sunYPos = 0;
+        }
     }
 
     // Used to implement any of the Mouse Actions
