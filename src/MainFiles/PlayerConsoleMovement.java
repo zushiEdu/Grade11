@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author etho8
+ * @author ethan
  */
 public class PlayerConsoleMovement {
 
@@ -12,17 +12,23 @@ public class PlayerConsoleMovement {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        Scanner input_Int = new Scanner(System.in);
+        Scanner input_String = new Scanner(System.in);
+
         int y = 1;
         int x = 1;
 
-        int mapSize = 5;
+        System.out.println("Enter desired map size.");
+
+        int mapSize;
+        mapSize = input_Int.nextInt();
+        //mapSize = 5;
 
         int playerX = 1;
         int playerY = 1;
 
         String instruction;
-
-        Scanner input = new Scanner(System.in);
 
         while (true) {
             // print mapSize rows
@@ -53,39 +59,64 @@ public class PlayerConsoleMovement {
                 System.out.println("");
                 x = 1;
             }
-            // record next instruction
-            instruction = input.nextLine();
 
             // reset row
             y = 1;
 
-            // chance location of player
-            if (instruction.equals("right")) {
+            // record next instruction
+            System.out.println("Enter instrction.");
+            instruction = input_String.nextLine();
+
+            // change location of player but stops player before it goes off the edge
+            if (instruction.equals("d")) {
+                // command to move player right
                 if (playerX < mapSize) {
                     playerX++;
-                } else if (playerX == mapSize){
+                } else if (playerX == mapSize) {
                     System.out.println("Invalid Command");
                 }
-            } else if (instruction.equals("left")) {
+            } else if (instruction.equals("a")) {
+                // command to move player left
                 if (playerX > 1) {
                     playerX--;
-                } else if (playerX == 1){
+                } else if (playerX == 1) {
                     System.out.println("Invalid Command");
                 }
-            } else if (instruction.equals("up")) {
+            } else if (instruction.equals("w")) {
+                // command to move player up
                 if (playerY > 1) {
                     playerY--;
-                } else if (playerY == 1){
+                } else if (playerY == 1) {
                     System.out.println("Invalid Command");
                 }
-                playerY--;
-            } else if (instruction.equals("down")) {
+            } else if (instruction.equals("s")) {
+                // command to move player down
                 if (playerY < mapSize) {
                     playerY++;
-                } else if (playerY == mapSize){
+                } else if (playerY == mapSize) {
                     System.out.println("Invalid Command");
                 }
+            } else if (instruction.equals("msc")) {
+                // command to change map size
+                System.out.println("Enter New Map Size");
+                mapSize = input_Int.nextInt();
+                if (playerX <= mapSize && playerY >= mapSize) {
+                    // if only y axis is off bounds
+                    playerY = mapSize;
+                } else if (playerX >= mapSize && playerY <= mapSize) {
+                    // if only x axis is off bounds
+                    playerX = mapSize;
+                } else if (playerX >= mapSize && playerY >= mapSize) {
+                    // if both axis are off bounds
+                    playerY = mapSize;
+                    playerX = mapSize;
+                }
+            } else {
+                System.out.println("Invalid Command");
             }
+            
+            System.out.print("\033[H\033[2J");
+            System.out.flush(); 
         }
     }
 }
