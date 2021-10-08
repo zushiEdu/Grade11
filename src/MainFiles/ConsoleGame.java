@@ -6,7 +6,7 @@ import java.util.Scanner;
  *
  * @author ethan
  */
-public class PlayerConsoleMovement {
+public class ConsoleGame {
 
     /**
      * @param args the command line arguments
@@ -19,54 +19,89 @@ public class PlayerConsoleMovement {
         int y = 1;
         int x = 1;
 
-        System.out.println("Enter desired map size.");
-
+        // comment out lines for input to make map size or preset map size
+        //System.out.println("Enter desired map size.");
         int mapSize;
-        mapSize = input_Int.nextInt();
-        //mapSize = 5;
+        //mapSize = input_Int.nextInt();
+        mapSize = 9;
 
         int playerX = 1;
         int playerY = 1;
 
+        int playerHealth = 1;
+
+        String[] chars = {"?", "W", "D"};
+        int[] mapData = {125, 233, 242, 253, 162, 173, 182};
+
+        String[] tb = {"  ", "  ", "  "};
+        int[] inv = {0, 0};
+
+        int in = 0;
+
+        int bI = mapData[in] / 100;
+        int bX = mapData[in] / 10 - (mapData[in] / 100) * 10;
+        int bY = mapData[in] - mapData[in] / 10 * 10;
+
+        boolean stopState = false;
+
         String instruction;
 
-        while (true) {
+        boolean run = true;
+
+        while (run) {
+            // sample health and location bar
+            // [HEA:][<3][<3][<3][LOC:][009,009]
+            // prints health and location
+            System.out.print("[HEA:]");
+
+            int i = 1;
+            while (i <= playerHealth) {
+                System.out.print("[<3]");
+                i++;
+            }
+            if (playerHealth <= 3) {
+                while (i <= 3) {
+                    System.out.print("[<>]");
+                    i++;
+                }
+            }
+
+            System.out.print("[LOC:]");
+            System.out.println("[00" + playerX + ",00" + playerY + "]");
+            System.out.println("[+----- 1 2 3 4 5 6 7 8 9 -----+]");
+            System.out.print("[|                             |]");
+
+            System.out.println("");
+
+            //System.out.print(chars[bI] + " ");
             // print mapSize rows
             while (y <= mapSize) {
+                System.out.print("[" + y + "      ");
                 // print mapSize collums
                 while (x <= mapSize) {
-                    // if the current blocks x and y are matching with the players
-                    if (x == playerX && y == playerY) {
-                        // print the player in this code but add a M next to it if this current block is the middle block
-                        if (x == (mapSize / 2) + 1 && y == (mapSize / 2) + 1) {
-                            System.out.print("[PM]");
+
+                    in = 0;
+                    stopState = false;
+                    while (stopState == false && in < mapData.length) {
+                        bI = mapData[in] / 100;
+                        bX = mapData[in] / 10 - (mapData[in] / 100) * 10;
+                        bY = mapData[in] - mapData[in] / 10 * 10;
+                        if (bX == x && bY == y) {
+                            stopState = true;
                         } else {
-                            System.out.print("[PO]");
-                        }
-                    } else {
-                        // print normal blocks but add m to second slot when the current block is the middle block
-                        if (x == mapSize / 2 + 1 && y == mapSize / 2 + 1) {
-                            System.out.print("[OM]");
-                        } else {
-                            System.out.print("[OO]");
+                            in++;
                         }
                     }
-                    
-                    // TODO: redo block placement loop, check through list of items with 4 digit id
-                    // First two numbers is the item id the last two are the location in x, y
-                    // Split number in half than half again
-                    // 1104 would be 11 modded by 10
-                    // 11 modded by 10 would be 1 which is the x
-                    // 1104 when 11 * 100 is taken away is 04 which is the id
-                    // 11 when 11 modded by 10 is taken away then 1 would be the y
-                    
-                    // the result of these operations is getting the x, y and id
-                    
-                    // loop through a list of items and placing them if the selected 
-                    // x and y is matching and print the character assigned with it
-                    
-                    // check to see if brute forcing the check is the easy way of checking
-                    
+
+                    // print block now
+                    if (bX == x && bY == y) {
+                        System.out.print(chars[bI] + " ");
+                    } else if (playerX == x && playerY == y) {
+                        System.out.print("P ");
+                    } else {
+                        System.out.print("O ");
+                    }
+
                     // to optimize in the future you would keep a list containing coordinates of chunk lists
                     // chunk lists have meta coordinates which contain items only within that chunk
                     // meta chunking makes relative palcing possible
@@ -81,14 +116,12 @@ public class PlayerConsoleMovement {
                     // these optimizations would mean rendering is quicker and the game can fit on a simpler interface
                     // potentially the player could also choose what camera mode to use before or while playing the game
                     // options menu can be an isntruction with the code "set"
-                    
                     // health
                     // an example of a full bar would be:
                     // [HP:][<3<3<3<3<3][HU:][C>C>C>C>C>]
                     // an example of an empty bar would be:
                     // [HP:][<><><><><>][HU:]<><><><><>]
                     // remove defining feature when showing value
-                    
                     // at bottom of interface you would have two bars
                     // [TO:][PI][SH][AX][IT:][99W][44D][23S]
                     // to: shows tools and it can show items which can be scrolled with instruciton l and r
@@ -97,21 +130,15 @@ public class PlayerConsoleMovement {
                     // durability could effect damage and have a minumum but also max
                     // tools can be repaired with repair bench
                     // bottom line is instruction input section
-                    
                     // map size would now be represented as chunk amount with generation
                     // chunk size would be height of game section within console
-                    
                     // game is updated every time a movement instruction is made
-                    
                     // 9x9 grid, 4 spacing on each side.
-                    
                     // color can be used for elements that would appear better in color
                     // examples of so are hears, map, tools, command area, items and background
                     // a fucntion would eventually want to be made for each element of the map
                     // turning every element into a function makes identification of bugs, and code simplification 
-                    
                     // screen mockup
-                    
                     // [HEA:][<3][<3][<3][LOC:][009,009]
                     // [+----- 1 2 3 4 5 6 7 8 9 -----+]
                     // [|                             |]
@@ -127,22 +154,24 @@ public class PlayerConsoleMovement {
                     // [|                             |]
                     // [+----- 1 2 3 4 5 6 7 8 9 -----+]
                     // [TO:][PI][SH][AX][ITE:][99W][42D]
-                    // [NC:]
-                    
+                    // [NC:] 
                     // increase collum
                     x++;
                 }
                 // increase row, reset collum and shift to next line
+                System.out.print("     " + y + "]");
                 y++;
                 System.out.println("");
                 x = 1;
             }
-
             // reset row
             y = 1;
 
+            System.out.println("[|                             |]");
+            System.out.println("[+----- 1 2 3 4 5 6 7 8 9 -----+]");
+            System.out.println("[TO:]" + "[" + tb[0] + "]" + "[" + tb[1] + "]" + "[" + tb[2] + "]" + "[ITE:]" + "[" + inv[0] + "]" + "[" + inv[1] + "]");
+
             // record next instruction
-            System.out.println("Enter instrction.");
             instruction = input_String.nextLine();
 
             // change location of player but stops player before it goes off the edge
@@ -176,6 +205,8 @@ public class PlayerConsoleMovement {
                 }
             } else if (instruction.equals("msc")) {
                 // command to change map size
+
+                /*
                 System.out.println("Enter New Map Size");
                 mapSize = input_Int.nextInt();
                 if (playerX <= mapSize && playerY >= mapSize) {
@@ -189,13 +220,83 @@ public class PlayerConsoleMovement {
                     playerY = mapSize;
                     playerX = mapSize;
                 }
+                 */
+                System.out.println("Disabled Command");
+
+            } else if (instruction.equals("stop")) {
+                run = false;
+            } else if (instruction.equals("mr")) {
+                // mine block to the right
+                int index = 0;
+                int loop = 1;
+                while (index < mapData.length) {
+                    // search through mapData
+                    if (mapData[index] - mapData[index] / 100 * 100 == (playerX + 1) * 10 + playerY) {
+                        // found matching block
+
+                        // add block to inventory
+                        if (mapData[index] / 100 == 1) {
+                            // add one to dirt value if amount of mapData sets are less than or equal to one
+                            if (inv[0] + inv[0] + 1 <= inv[0] + inv[0] + 1) {
+                                inv[0] = inv[0] + 1;
+                            }
+                        } else if (mapData[index] / 100 == 2) {
+                            // add one to wood value if amount of mapData sets are less than or equal to one
+                            if (inv[1] + inv[1] + 1 <= inv[1] + inv[1] + 1) {
+                                inv[1] = inv[1] + 1;
+                            }
+                        }
+
+                        while (loop < mapData.length) {
+                            if (index + loop < mapData.length) {
+                                mapData[index] = mapData[index + loop];
+                            }
+                            loop++;
+                        }
+                        loop = 1;
+                    }
+                    index++;
+                }
+            } else if (instruction.equals("ml")) {
+                // mine block to the left
+                int index = 0;
+                int loop = 1;
+                while (index < mapData.length) {
+                    // search through mapData
+                    if (mapData[index] - mapData[index] / 100 * 100 == (playerX - 1) * 10 + playerY) {
+                        // found matching block
+
+                        // add block to inventory
+                        if (mapData[index] / 100 == 1) {
+                            // add one to dirt value if amount of mapData sets are less than or equal to one
+                            if (inv[0] + inv[0] + 1 <= inv[0] + inv[0] + 1) {
+                                inv[0] = inv[0] + 1;
+                            }
+                        } else if (mapData[index] / 100 == 2) {
+                            // add one to wood value if amount of mapData sets are less than or equal to one
+                            if (inv[1] + inv[1] + 1 <= inv[1] + inv[1] + 1) {
+                                inv[1] = inv[1] + 1;
+                            }
+                        }
+
+                        while (loop < mapData.length) {
+                            if (index + loop < mapData.length) {
+                                mapData[index] = mapData[index + loop];
+                            }
+                            loop++;
+                        }
+                        loop = 1;
+                    }
+                    index++;
+                }
             } else {
+
                 System.out.println("Invalid Command");
             }
-            
+
             // clears console after every command
             System.out.print("\033[H\033[2J");
-            System.out.flush(); 
+            System.out.flush();
         }
     }
 }
