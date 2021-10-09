@@ -30,8 +30,8 @@ public class ConsoleGame {
 
         int playerHealth = 1;
 
-        String[] chars = {"?", "W", "D"};
-        int[] mapData = {125, 233, 242, 253, 162, 173, 182};
+        String[] chars = {"?", "W", "D", "C"};
+        int[] mapData = {125, 233, 242, 253, 162, 173, 182, 399};
 
         String[] tb = {"  ", "  ", "  "};
         int[] inv = {0, 0};
@@ -169,7 +169,16 @@ public class ConsoleGame {
 
             System.out.println("[|                             |]");
             System.out.println("[+----- 1 2 3 4 5 6 7 8 9 -----+]");
-            System.out.println("[TO:]" + "[" + tb[0] + "]" + "[" + tb[1] + "]" + "[" + tb[2] + "]" + "[ITE:]" + "[" + inv[0] + "]" + "[" + inv[1] + "]");
+
+            System.out.print("[TO:]" + "[" + tb[0] + "]" + "[" + tb[1] + "]" + "[" + tb[2] + "]" + "[ITE:]" + "[");
+            if (inv[0] < 10) {
+                System.out.print("0" + inv[0] + "W");
+            }
+            System.out.print("][");
+            if (inv[1] < 10) {
+                System.out.print("0" + inv[1] + "D]");
+            }
+            System.out.println("");
 
             // record next instruction
             instruction = input_String.nextLine();
@@ -228,11 +237,11 @@ public class ConsoleGame {
             } else if (instruction.equals("mr")) {
                 // mine block to the right
                 int index = 0;
-                int loop = 1;
+                int loop = 0;
                 while (index < mapData.length) {
                     // search through mapData
                     if (mapData[index] - mapData[index] / 100 * 100 == (playerX + 1) * 10 + playerY) {
-                        // found matching block
+                        // found matching block to the right
 
                         // add block to inventory
                         if (mapData[index] / 100 == 1) {
@@ -250,6 +259,8 @@ public class ConsoleGame {
                         while (loop < mapData.length) {
                             if (index + loop < mapData.length) {
                                 mapData[index] = mapData[index + loop];
+                            } else {
+                                mapData[index] = 0;
                             }
                             loop++;
                         }
@@ -260,7 +271,7 @@ public class ConsoleGame {
             } else if (instruction.equals("ml")) {
                 // mine block to the left
                 int index = 0;
-                int loop = 1;
+                int loop = 0;
                 while (index < mapData.length) {
                     // search through mapData
                     if (mapData[index] - mapData[index] / 100 * 100 == (playerX - 1) * 10 + playerY) {
@@ -279,9 +290,14 @@ public class ConsoleGame {
                             }
                         }
 
+                        // replace the data
+                        // get the data from one above and shift it down
+                        // if data is at the top change it to zero
                         while (loop < mapData.length) {
                             if (index + loop < mapData.length) {
                                 mapData[index] = mapData[index + loop];
+                            } else {
+                                mapData[index] = 0;
                             }
                             loop++;
                         }
@@ -289,12 +305,53 @@ public class ConsoleGame {
                     }
                     index++;
                 }
+            } else if (instruction.equals("er")) {
+                int index = 0;
+                boolean stopConditon = false;
+                while (index < mapData.length && stopConditon == false) {
+                    if (mapData[index] - mapData[index] / 100 * 100 == (playerX + 1) * 10 + playerY) {
+                        // if there is a block to the right
+                        if (mapData[index] / 100 == 3) {
+                            //this is a crafting bench
+                            //open up crafting screen
+                            System.out.println("Type item to craft");
+                            String item = input_String.nextLine();
+                            if (item.equals("axe")) {
+                                if (inv[0] >= 2) {
+                                    tb[0] = "AX";
+                                    System.out.println("Axe Was Crafted.");
+                                    inv[0] = inv[0] - 2;
+                                    stopConditon = true;
+                                } else {
+                                    System.out.println("Not enough wood.");
+                                    stopConditon = true;
+                                }
+                            } else if (item.equals("dirt cake")) {
+                                if (inv[1] >= 1) {
+                                    playerHealth++;
+                                    System.out.println("A Dirt Cake Was Crafted and Consumed.");
+                                    inv[1] = inv[1] - 1;
+                                    stopConditon = true;
+                                } else {
+                                    System.out.println("Not enough dirt.");
+                                    stopConditon = true;
+                                }
+                            } else {
+                                System.out.println("Invalid Item Code.");
+                                stopConditon = true;
+                            }
+                        } else {
+                            System.out.println("Was not crafting bench");
+                            stopConditon = true;
+                        }
+                    }
+                    index++;
+                }
             } else {
-
                 System.out.println("Invalid Command");
             }
 
-            // clears console after every command
+            // clears console after every loop
             System.out.print("\033[H\033[2J");
             System.out.flush();
         }
