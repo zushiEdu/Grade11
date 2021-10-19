@@ -52,30 +52,28 @@ public class ConsoleGame {
 
         // master game loop
         while (run) {
-            // prints health
+            // prints health tag
             System.out.print("[HEA:]");
 
-            int i = 1;
-            while (i <= playerHealth) {
+            // prints full hearts
+            for (int i = 0; i < playerHealth; i++) {
                 System.out.print("[<3]");
-                i++;
             }
-            if (playerHealth <= 3) {
-                while (i <= 3) {
+
+            // prints empty hearts
+            if (playerHealth < 3) {
+                for (int i = 0; i < 3 - playerHealth; i++) {
                     System.out.print("[<>]");
-                    i++;
                 }
             }
 
-            // prints location of player
+            // prints location of player and some of the user interface
             System.out.print("[LOC:]");
             System.out.println("[00" + playerX + ",00" + playerY + "]");
             System.out.println("[+----- 1 2 3 4 5 6 7 8 9 -----+]");
             System.out.print("[|                             |]");
-
             System.out.println("");
 
-            //System.out.print(chars[bI] + " ");
             // print mapSize rows
             while (y <= mapSize) {
                 System.out.print("[" + y + "      ");
@@ -162,26 +160,6 @@ public class ConsoleGame {
                 } else if (playerY == mapSize) {
                     System.out.println("Invalid Command");
                 }
-            } else if (instruction.equals("msc")) {
-                // command to change map size
-
-                /*
-                System.out.println("Enter New Map Size");
-                mapSize = input_Int.nextInt();
-                if (playerX <= mapSize && playerY >= mapSize) {
-                    // if only y axis is off bounds
-                    playerY = mapSize;
-                } else if (playerX >= mapSize && playerY <= mapSize) {
-                    // if only x axis is off bounds
-                    playerX = mapSize;
-                } else if (playerX >= mapSize && playerY >= mapSize) {
-                    // if both axis are off bounds
-                    playerY = mapSize;
-                    playerX = mapSize;
-                }
-                 */
-                System.out.println("Disabled Command");
-
             } else if (instruction.equals("stop") || instruction.equals("exit")) {
                 run = false;
             } else if (instruction.equals("mr")) {
