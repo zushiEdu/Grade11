@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -18,7 +19,7 @@ import javax.swing.Timer;
  *
  * @author etho8
  */
-public class SpiralDrawing extends JComponent implements ActionListener {
+public class RotationPractice extends JComponent implements ActionListener {
 
     // Height and Width of our game
     static final int WIDTH = 800;
@@ -41,7 +42,7 @@ public class SpiralDrawing extends JComponent implements ActionListener {
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public SpiralDrawing() {
+    public RotationPractice() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -81,26 +82,18 @@ public class SpiralDrawing extends JComponent implements ActionListener {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        // GAME DRAWING GOES HERE
-        int angle = 0;
-        int r = 0;
-        
-        int oldX = 400;
-        int oldY = 400;
+        Graphics2D g2d = (Graphics2D) g;
 
-        for (int i = 0; i < WIDTH / 2; i++) {
-            int x = (int) (r * Math.sin(angle));
-            int y = (int) (r * Math.cos(angle));
+        // GAME DRAWING GOES HERE
+        //move the origin to the center
+        for (int i = 0; i < 360; i = i + 5) {
+            g2d.translate(400, 400);
+            g2d.rotate(Math.toRadians(i));
             
-            angle = angle + 10;
-            r = r + 4;
+            g.drawRect(-50, -50, 200, 300);
             
-            //g.fillOval(x + 400, y + 400, 10, 10);
-            
-            g.drawLine(x + 400, y + 400, oldX, oldY);
-            
-            oldX = 400 + x;
-            oldY = 400 + y;
+            g2d.rotate(Math.toRadians(-i));
+            g2d.translate(-400, -400);
         }
 
         // GAME DRAWING ENDS HERE
@@ -174,6 +167,6 @@ public class SpiralDrawing extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        SpiralDrawing game = new SpiralDrawing();
+        RotationPractice game = new RotationPractice();
     }
 }
