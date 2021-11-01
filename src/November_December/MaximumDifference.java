@@ -43,7 +43,7 @@ public class MaximumDifference {
                 twoLargest[1] = temp;
             }
         }
-                
+        
         // find the smallest number
         for (int i = 0; i < numbers.length; i++) {
             temp = numbers[i];
@@ -60,9 +60,9 @@ public class MaximumDifference {
                 twoSmallest[1] = temp;
             }
         }
-        
+
         int maxDif = twoLargest[0] * twoLargest[1] - twoSmallest[0] * twoSmallest[1];
-        
+
         System.out.println("The max difference is " + maxDif);
 
     }
