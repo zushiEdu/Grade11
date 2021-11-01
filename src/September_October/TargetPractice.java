@@ -1,11 +1,10 @@
-package MainFiles;
+package September_October;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,11 +18,11 @@ import javax.swing.Timer;
  *
  * @author etho8
  */
-public class RotationPractice extends JComponent implements ActionListener {
+public class TargetPractice extends JComponent implements ActionListener {
 
     // Height and Width of our game
-    static final int WIDTH = 800;
-    static final int HEIGHT = 800;
+    static final int WIDTH = 400;
+    static final int HEIGHT = 400;
 
     //Title of the window
     String title = "My Game";
@@ -42,7 +41,7 @@ public class RotationPractice extends JComponent implements ActionListener {
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public RotationPractice() {
+    public TargetPractice() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -82,18 +81,22 @@ public class RotationPractice extends JComponent implements ActionListener {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        Graphics2D g2d = (Graphics2D) g;
-
         // GAME DRAWING GOES HERE
-        //move the origin to the center
-        for (int i = 0; i < 360; i = i + 5) {
-            g2d.translate(400, 400);
-            g2d.rotate(Math.toRadians(i));
+        for (int i = 0; i < 8; i++) {
+            if (i >= 0 && i < 1) {
+                g.setColor(Color.black);
+            } else if (i >= 1 && i < 3) {
+                g.setColor(Color.blue);
+            } else if (i >= 3 && i < 5) {
+                g.setColor(Color.red);
+            } else if (i >= 5 && i < 8) {
+                g.setColor(Color.yellow);
+            }
+            //g.setColor(Color.red);
+            g.fillOval((WIDTH / 16) * i, (HEIGHT / 16) * i, WIDTH - i * WIDTH / 8, HEIGHT - i * WIDTH / 8);
             
-            g.drawRect(-50, -50, 200, 300);
-            
-            g2d.rotate(Math.toRadians(-i));
-            g2d.translate(-400, -400);
+            g.setColor(Color.white);
+            g.drawOval((WIDTH / 16) * i, (HEIGHT / 16) * i, WIDTH - i * WIDTH / 8, HEIGHT - i * WIDTH / 8);
         }
 
         // GAME DRAWING ENDS HERE
@@ -167,6 +170,6 @@ public class RotationPractice extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        RotationPractice game = new RotationPractice();
+        TargetPractice game = new TargetPractice();
     }
 }

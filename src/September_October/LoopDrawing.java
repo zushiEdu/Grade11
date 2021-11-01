@@ -1,4 +1,4 @@
-package MainFiles;
+package September_October;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,21 +12,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.Random;
 import javax.swing.Timer;
 
 /**
  *
- * @author etho8
+ * @author ethan huber
  */
-public class CItyScroller extends JComponent implements ActionListener {
+public class LoopDrawing extends JComponent implements ActionListener {
 
     // Height and Width of our game
-    static final int WIDTH = 400;
-    static final int HEIGHT = 400;
+    static final int WIDTH = 800;
+    static final int HEIGHT = 800;
 
     //Title of the window
-    String title = "My Game";
+    String title = "For Loop Drawing";
 
     // sets the framerate and delay for our game
     // this calculates the number of milliseconds per frame
@@ -39,17 +38,10 @@ public class CItyScroller extends JComponent implements ActionListener {
     Timer gameTimer;
 
     // YOUR GAME VARIABLES WOULD GO HERE
-    Random rand = new Random();
-    int maxHeight = 7;
-
-    int ranHeight[] = new int[36];
-
-    int offset = 50;
-
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public CItyScroller() {
+    public LoopDrawing() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -90,46 +82,48 @@ public class CItyScroller extends JComponent implements ActionListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-        if (offset <= 0) {
-            offset = 800;
-            for (int i = 0; i < ranHeight.length; i++) {
-                ranHeight[i] = rand.nextInt(maxHeight);
-            }
-        }
+        int blocks = 8;
+        Color color;
 
-        // draw building
-        for (int i = 0; i < 36; i++) {
-            if (i % 2 == 0) {
-                // place base of building
-                g.setColor(Color.black);
-                g.fillRect((50 * i) - offset, 400, 50, -50);
-                g.setColor(Color.white);
-                g.fillRect((50 * i) - offset + 10, 400, 10, -20);
-                g.fillRect((50 * i) - offset + 30, 400 - 10, 10, -10);
-                g.fillRect((50 * i) - offset + 30, 400 - 30, 10, -10);
-                g.fillRect((50 * i) - offset + 10, 400 - 30, 10, -10);
-
-                for (int j = 0; j < ranHeight[i]; j++) {
-                    g.setColor(Color.black);
-                    g.fillRect((50 * i) - offset, 350 - 50 * j, 50, -50);
+        // draw 8 vertical rows
+        for (int j = 0; j < blocks; j++) {
+            // draw 8 horizontal squares
+            for (int i = 0; i < blocks; i++) {
+                // change color based on odd or even x
+                if ((i + j) % 2 == 0) {
+                    //even
                     g.setColor(Color.white);
-                    // bottom windows
-                    g.fillRect((50 * i) - offset + 30, 350 - 50 * j - 10, 10, -10);
-                    g.fillRect((50 * i) - offset + 10, 350 - 50 * j - 10, 10, -10);
-                    // top windows
-                    g.fillRect((50 * i) - offset + 30, 350 - 50 * j - 30, 10, -10);
-                    g.fillRect((50 * i) - offset + 10, 350 - 50 * j - 30, 10, -10);
+                    color = Color.red;
+                } else {
+                    //odd
+                    g.setColor(Color.black);
+                    color = Color.blue;
+                }
 
+                // draw rectangle with color
+                g.fillRect((WIDTH / blocks * i), (HEIGHT / blocks) * j, (WIDTH / blocks), (HEIGHT / blocks));
+                g.setColor(color);
+
+                int x = 100 * i;
+                int y = 100 * j;
+
+                // break up the big square into small rectangles
+                for (int k = 0; k < 5; k++) {
+                    // draw vertical boxes inside bigger box
+                    if ((i + j) % 2 == 0) {
+                        g.drawRect(x + 20 * k, y, 20, 100);
+                    } else {
+                        g.drawRect(x, y + 20 * k, 100, 20);
+                    }
                 }
             }
         }
-        offset = offset - 5;
 
         // GAME DRAWING ENDS HERE
     }
 
-// This method is used to do any pre-setup you might need to do
-// This is run before the game loop begins!
+    // This method is used to do any pre-setup you might need to do
+    // This is run before the game loop begins!
     public void setup() {
         // Any of your pre setup before the loop starts should go here
 
@@ -169,7 +163,7 @@ public class CItyScroller extends JComponent implements ActionListener {
         }
     }
 
-// Used to implements any of the Keyboard Actions
+    // Used to implements any of the Keyboard Actions
     private class Keyboard extends KeyAdapter {
 
         // if a key has been pressed down
@@ -196,6 +190,6 @@ public class CItyScroller extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        CItyScroller game = new CItyScroller();
+        LoopDrawing game = new LoopDrawing();
     }
 }

@@ -1,4 +1,4 @@
-package MainFiles;
+package September_October;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,13 +12,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.Random;
 import javax.swing.Timer;
 
 /**
  *
  * @author etho8
  */
-public class TargetPractice extends JComponent implements ActionListener {
+public class CItyScroller extends JComponent implements ActionListener {
 
     // Height and Width of our game
     static final int WIDTH = 400;
@@ -38,10 +39,17 @@ public class TargetPractice extends JComponent implements ActionListener {
     Timer gameTimer;
 
     // YOUR GAME VARIABLES WOULD GO HERE
+    Random rand = new Random();
+    int maxHeight = 7;
+
+    int ranHeight[] = new int[36];
+
+    int offset = 50;
+
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public TargetPractice() {
+    public CItyScroller() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -82,28 +90,46 @@ public class TargetPractice extends JComponent implements ActionListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-        for (int i = 0; i < 8; i++) {
-            if (i >= 0 && i < 1) {
-                g.setColor(Color.black);
-            } else if (i >= 1 && i < 3) {
-                g.setColor(Color.blue);
-            } else if (i >= 3 && i < 5) {
-                g.setColor(Color.red);
-            } else if (i >= 5 && i < 8) {
-                g.setColor(Color.yellow);
+        if (offset <= 0) {
+            offset = 800;
+            for (int i = 0; i < ranHeight.length; i++) {
+                ranHeight[i] = rand.nextInt(maxHeight);
             }
-            //g.setColor(Color.red);
-            g.fillOval((WIDTH / 16) * i, (HEIGHT / 16) * i, WIDTH - i * WIDTH / 8, HEIGHT - i * WIDTH / 8);
-            
-            g.setColor(Color.white);
-            g.drawOval((WIDTH / 16) * i, (HEIGHT / 16) * i, WIDTH - i * WIDTH / 8, HEIGHT - i * WIDTH / 8);
         }
+
+        // draw building
+        for (int i = 0; i < 36; i++) {
+            if (i % 2 == 0) {
+                // place base of building
+                g.setColor(Color.black);
+                g.fillRect((50 * i) - offset, 400, 50, -50);
+                g.setColor(Color.white);
+                g.fillRect((50 * i) - offset + 10, 400, 10, -20);
+                g.fillRect((50 * i) - offset + 30, 400 - 10, 10, -10);
+                g.fillRect((50 * i) - offset + 30, 400 - 30, 10, -10);
+                g.fillRect((50 * i) - offset + 10, 400 - 30, 10, -10);
+
+                for (int j = 0; j < ranHeight[i]; j++) {
+                    g.setColor(Color.black);
+                    g.fillRect((50 * i) - offset, 350 - 50 * j, 50, -50);
+                    g.setColor(Color.white);
+                    // bottom windows
+                    g.fillRect((50 * i) - offset + 30, 350 - 50 * j - 10, 10, -10);
+                    g.fillRect((50 * i) - offset + 10, 350 - 50 * j - 10, 10, -10);
+                    // top windows
+                    g.fillRect((50 * i) - offset + 30, 350 - 50 * j - 30, 10, -10);
+                    g.fillRect((50 * i) - offset + 10, 350 - 50 * j - 30, 10, -10);
+
+                }
+            }
+        }
+        offset = offset - 5;
 
         // GAME DRAWING ENDS HERE
     }
 
-    // This method is used to do any pre-setup you might need to do
-    // This is run before the game loop begins!
+// This method is used to do any pre-setup you might need to do
+// This is run before the game loop begins!
     public void setup() {
         // Any of your pre setup before the loop starts should go here
 
@@ -143,7 +169,7 @@ public class TargetPractice extends JComponent implements ActionListener {
         }
     }
 
-    // Used to implements any of the Keyboard Actions
+// Used to implements any of the Keyboard Actions
     private class Keyboard extends KeyAdapter {
 
         // if a key has been pressed down
@@ -170,6 +196,6 @@ public class TargetPractice extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        TargetPractice game = new TargetPractice();
+        CItyScroller game = new CItyScroller();
     }
 }

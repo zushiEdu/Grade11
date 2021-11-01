@@ -1,10 +1,11 @@
-package MainFiles;
+package September_October;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -16,16 +17,16 @@ import javax.swing.Timer;
 
 /**
  *
- * @author ethan huber
+ * @author etho8
  */
-public class LoopDrawing extends JComponent implements ActionListener {
+public class RotationPractice extends JComponent implements ActionListener {
 
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
 
     //Title of the window
-    String title = "For Loop Drawing";
+    String title = "My Game";
 
     // sets the framerate and delay for our game
     // this calculates the number of milliseconds per frame
@@ -41,7 +42,7 @@ public class LoopDrawing extends JComponent implements ActionListener {
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public LoopDrawing() {
+    public RotationPractice() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -81,42 +82,18 @@ public class LoopDrawing extends JComponent implements ActionListener {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
+        Graphics2D g2d = (Graphics2D) g;
+
         // GAME DRAWING GOES HERE
-        int blocks = 8;
-        Color color;
-
-        // draw 8 vertical rows
-        for (int j = 0; j < blocks; j++) {
-            // draw 8 horizontal squares
-            for (int i = 0; i < blocks; i++) {
-                // change color based on odd or even x
-                if ((i + j) % 2 == 0) {
-                    //even
-                    g.setColor(Color.white);
-                    color = Color.red;
-                } else {
-                    //odd
-                    g.setColor(Color.black);
-                    color = Color.blue;
-                }
-
-                // draw rectangle with color
-                g.fillRect((WIDTH / blocks * i), (HEIGHT / blocks) * j, (WIDTH / blocks), (HEIGHT / blocks));
-                g.setColor(color);
-
-                int x = 100 * i;
-                int y = 100 * j;
-
-                // break up the big square into small rectangles
-                for (int k = 0; k < 5; k++) {
-                    // draw vertical boxes inside bigger box
-                    if ((i + j) % 2 == 0) {
-                        g.drawRect(x + 20 * k, y, 20, 100);
-                    } else {
-                        g.drawRect(x, y + 20 * k, 100, 20);
-                    }
-                }
-            }
+        //move the origin to the center
+        for (int i = 0; i < 360; i = i + 5) {
+            g2d.translate(400, 400);
+            g2d.rotate(Math.toRadians(i));
+            
+            g.drawRect(-50, -50, 200, 300);
+            
+            g2d.rotate(Math.toRadians(-i));
+            g2d.translate(-400, -400);
         }
 
         // GAME DRAWING ENDS HERE
@@ -190,6 +167,6 @@ public class LoopDrawing extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        LoopDrawing game = new LoopDrawing();
+        RotationPractice game = new RotationPractice();
     }
 }

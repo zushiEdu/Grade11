@@ -1,4 +1,4 @@
-package MainFiles;
+package September_October;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,14 +18,14 @@ import javax.swing.Timer;
  *
  * @author etho8
  */
-public class DrawingPractice extends JComponent implements ActionListener {
+public class SpiralDrawing extends JComponent implements ActionListener {
 
     // Height and Width of our game
-    static final int WIDTH = 500;
-    static final int HEIGHT = 500;
+    static final int WIDTH = 800;
+    static final int HEIGHT = 800;
 
     //Title of the window
-    String title = "Drawing";
+    String title = "My Game";
 
     // sets the framerate and delay for our game
     // this calculates the number of milliseconds per frame
@@ -38,15 +38,10 @@ public class DrawingPractice extends JComponent implements ActionListener {
     Timer gameTimer;
 
     // YOUR GAME VARIABLES WOULD GO HERE
-    int sunYPos = 50;
-    int skyR = 135;
-    int skyG = 206;
-    int skyB = 235;
-
     // GAME VARIABLES END HERE    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public DrawingPractice() {
+    public SpiralDrawing() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -87,44 +82,26 @@ public class DrawingPractice extends JComponent implements ActionListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-        // COLORS
-        Color woodBrown = new Color(98, 52, 18);
-        Color skyBlue = new Color(skyR, skyG, skyB);
-        Color grass = new Color(0, 100, 0);
+        int angle = 0;
+        int r = 0;
+        
+        int oldX = 400;
+        int oldY = 400;
 
-        // COMPLETE BACKGROUND
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 0, 500, 500);
-
-        //SKY
-        g.setColor(skyBlue);
-        g.fillRect(25, 25, 450, 450);
-
-        //SUN
-        g.setColor(Color.yellow);
-        g.fillOval(50, sunYPos, 75, 75);
-
-        //SUN COVERS
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 0, 500, 25);
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 400, 500, 500);
-
-        // TERRAIN START
-        int[] xPoints = {25, 25, 475, 475};
-        int[] yPoints = {400, 475, 475, 360};
-
-        g.setColor(grass);
-        g.fillPolygon(xPoints, yPoints, 4);
-        // TERRAIN END
-
-        // TREE START
-        g.setColor(woodBrown);
-        g.fillRect(300, 260, 30, 120);
-
-        g.setColor(grass);
-        g.fillOval(275, 220, 80, 80);
-        // TREE END
+        for (int i = 0; i < WIDTH / 2; i++) {
+            int x = (int) (r * Math.sin(angle));
+            int y = (int) (r * Math.cos(angle));
+            
+            angle = angle + 10;
+            r = r + 4;
+            
+            //g.fillOval(x + 400, y + 400, 10, 10);
+            
+            g.drawLine(x + 400, y + 400, oldX, oldY);
+            
+            oldX = 400 + x;
+            oldY = 400 + y;
+        }
 
         // GAME DRAWING ENDS HERE
     }
@@ -140,40 +117,6 @@ public class DrawingPractice extends JComponent implements ActionListener {
     // In here is where all the logic for my game will go
     public void loop() {
 
-        sunYPos++;
-
-        // When sun is in the position to start setting, make the background go darker
-        if (sunYPos >= 50) {
-            if (skyR > 0) {
-                skyR--;
-            }
-            if (skyG > 0) {
-                skyG--;
-            }
-            if (skyG == skyR) {
-                if (skyB > 50) {
-                    skyB--;
-                }
-            }
-        }
-
-        // Reset the sun to the sunrise position when sunset is done
-        if (sunYPos > HEIGHT) {
-            sunYPos = -400;
-        }
-
-        // When the sun is in the sunrise position make the sky brighten up
-        if (sunYPos < 0) {
-            if (skyR <= 135 && skyB == 236 && skyG >= 72) {
-                skyR++;
-            }
-            if (skyG <= 206 && skyB == 236) {
-                skyG++;
-            }
-            if (skyB <= 235) {
-                skyB++;
-            }
-        }
     }
 
     // Used to implement any of the Mouse Actions
@@ -231,6 +174,6 @@ public class DrawingPractice extends JComponent implements ActionListener {
      */
     public static void main(String[] args) {
         // creates an instance of my game
-        DrawingPractice game = new DrawingPractice();
+        SpiralDrawing game = new SpiralDrawing();
     }
 }
