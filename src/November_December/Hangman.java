@@ -139,7 +139,7 @@ public class Hangman {
                     }
                 }
                 if (charFound == false) {
-                    attempt = attempt + "_";
+                    attempt = attempt + " _";
                 }
             }
 
