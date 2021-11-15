@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Developed by Ethan Huber
+${licensePrefix}Year of 2021 grade 11
+${licensePrefix}Feel free to copy, redistribute and use
+<#if licenseLast??>
+${licenseLast}
+</#if>
