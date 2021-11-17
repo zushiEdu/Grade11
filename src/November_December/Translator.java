@@ -42,20 +42,56 @@ public class Translator {
                 || word.charAt(pos) == 'U';
     }
 
+    public static String toEnglish(String word) {
+        word = word.toUpperCase();
+        if (word.substring(word.length() - 3).equals("WAY")) {
+            //take way and remove it
+            return word.substring(0, word.length() - 3);
+        } else if ((word.substring(word.length() - 2)).equals("AY")) {
+            String back = "";
+            String front = "";
+            for (int i = word.length() - 1; i > 0; i--) {
+                if (vowel(i, word)) {
+                    word = word.substring(0, word.length() - 2);
+                    back = word.substring(i - 1);
+                    front = word.substring(0, word.length() - 1);
+                }
+            }
+
+            return back + front;
+        }
+        return null;
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter word to translate to piglatin");
-        String line = input.nextLine();
-        String[] words = line.split(" ");
-        // translate every word in sentence
-        for (int i = 0; i < words.length; i++) {
-            // translate i word in words
-            String translation = toPigLatin(words[i]);
-            System.out.print(translation + " ");
+        System.out.println("Message to english or to piglatin from english");
+        System.out.println("( piglatin / english )");
+        String mode = input.nextLine();
+        if (mode.equals("piglatin")) {
+            System.out.println("Enter phrase to translate to piglatin");
+            String line = input.nextLine();
+            String[] words = line.split(" ");
+            // translate every word in sentence
+            for (int i = 0; i < words.length; i++) {
+                // translate i word in words
+                String translation = toPigLatin(words[i]);
+                System.out.print(translation + " ");
+            }
+            System.out.println("");
+        } else if (mode.equals("english")) {
+            System.out.println("Enter phrase to translate from piglatin to english");
+            String line = input.nextLine();
+            String[] words = line.split(" ");
+            // translates words in sentence
+            for (int i = 0; i < words.length; i++) {
+                String translation = toEnglish(words[i]);
+                System.out.print(translation + " ");
+            }
+            System.out.println("");
         }
-        System.out.println("");
     }
 }
