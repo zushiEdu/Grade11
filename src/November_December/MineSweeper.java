@@ -18,43 +18,98 @@ public class MineSweeper {
      * @param args the command line arguments
      */
     static Random rand = new Random();
-    
+
     static Scanner input = new Scanner(System.in);
+
+    static boolean[][] mines = new boolean[9][9];
+    static boolean[][] flags = new boolean[9][9];
+    static boolean[][] mined = new boolean[9][9];
+
+    static boolean run = true;
 
     public static void main(String[] args) {
         // TODO code application logic here
-        boardPrint(boardGen(9));
-        chooseMode(charInput("Place flag or mine (f/m)"), intInput("At what x coordinate (0-8)"), intInput("At what y coordinate (0-8)"));
+
+        boardGen(9);
+        while (run) {
+            if (checkForWin()) {
+                boardPrint();
+                System.out.println("You won.");
+                run = false;
+            }
+            boardPrint();
+            chooseMode(stringInput("Place flag or mine (f/m)"), intInput("At what x coordinate (0-8)"), intInput("At what y coordinate (0-8)"));
+            checkForLose();
+            if (checkForWin()) {
+                // won
+                boardPrint();
+                System.out.println("You won.");
+                run = false;
+            }
+        }
     }
-    
-    public static char charInput(String message){
-        System.out.println(message);
-        return input.nextLine().charAt(0);
+
+    public static boolean checkForWin() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (mines[i][j] != flags[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
-    
-    public static int intInput(String message){
+
+    public static void checkForLose() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (mines[i][j] && mined[i][j]) {
+                    System.out.println("You lost.");
+                    run = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    public static String stringInput(String message) {
         System.out.println(message);
-        return input.nextInt();
+        input.nextLine();
+        String character = input.nextLine();
+        return character;
+    }
+
+    public static int intInput(String message) {
+        System.out.println(message);
+        int number = input.nextInt();
+        return number;
     }
 
     public static boolean[][] boardGen(int size) {
-        boolean[][] mines = new boolean[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                int r = rand.nextInt(4);
-                mines[i][j] = r == 3;
+                int r = rand.nextInt(100);
+                if (r == 1 || r == 1) {
+                    mines[i][j] = true;
+                }
             }
         }
         return mines;
     }
 
-    public static void boardPrint(boolean[][] mines) {
+    public static void boardPrint() {
+        System.out.print("  ");
+        for (int i = 0; i < 9; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("");
         for (int i = 0; i < mines.length; i++) {
+            System.out.print(i + " ");
             for (int j = 0; j < mines[i].length; j++) {
                 //System.out.print(checkSurrounding(j, i, mines) + " ");
-                
-                if (mines[j][i]){
-                    System.out.print("X ");
+
+                if (mines[j][i]) {
+                    System.out.print("M ");
                 } else {
                     System.out.print("O ");
                 }
@@ -62,39 +117,24 @@ public class MineSweeper {
             System.out.println("");
         }
     }
-    
-    public static void chooseMode(char m, int x, int y){
-        if (m == 'f'){
-            placeFlag(x, y);
-        }
-        if (m == 'm'){
-            mineSweep(x, y);
-        }
-    }
-    
-    public static void placeFlag(int x, int y){
-        System.out.println(x + " " + y);
-    }
-    
-    public static void mineSweep(int x, int y){
-        System.out.println(x + " " + y);
-    }
 
-    // FIX
-    public static int checkSurrounding(int xC, int yC, boolean[][] mines) {
-        int count = 0;
-        for (int y = -1; y < 2; y++) {
-            for (int x = -1; x < 2; x++) {
-                if (xC + x != 0 && yC + y != 0) {
-                    // every square around xC and xY
-                    if (xC + x >= 0 && yC + y >= 0 && xC + x < mines.length && yC + y < mines[y].length) {
-                        if (mines[yC + y][xC + x]) {
-                            count++;
-                        }
-                    }
-                }
+    public static void chooseMode(String m, int x, int y) {
+        if (m.equals("f")) {
+            if (flags[y][x]) {
+                flags[y][x] = false;
+            } else {
+                flags[y][x] = true;
             }
         }
+        if (m.equals("m")) {
+            mined[y][x] = true;
+        }
+    }
+
+    // DO
+    public static int checkSurrounding(int xC, int yC, boolean[][] mines) {
+        int count = 0;
+
         //System.out.print(count);
         return count;
     }

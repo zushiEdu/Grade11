@@ -45,11 +45,16 @@ public class Translator {
     public static String toEnglish(String word) {
         word = word.toUpperCase();
         if (word.substring(word.length() - 3).equals("WAY")) {
+            
             //take way and remove it
-            return word.substring(0, word.length() - 3);
+            word = word.substring(0, word.length() - 3);
+            return word;
         } else if ((word.substring(word.length() - 2)).equals("AY")) {
             word = word.substring(0, word.length() - 2);
-            word = word.charAt(word.length() - 1) + word.substring(0);
+            // ourf
+            char last = word.charAt(word.length() - 1);
+            String front = word.substring(0, word.length() - 1);
+            word = last + front;
             return word;
         }
         return null;
