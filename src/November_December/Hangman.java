@@ -14,10 +14,93 @@ public class Hangman {
         Scanner input = new Scanner(System.in);
 
         // list of known words
-        String[] words = {"tonight", "paragraph", "own", "every", "strip", "lot", "younger", "themselves", "number", "grow", "cut", "loss", "thumb", "wolf", "recent", "shelf", "managed", "drive", "tower", "sometime", "perfectly", "lungs", "tool", "farther", "hide", "know", "liquid", "bet", "held", "property", "tall", "list", "toy", "mad", "art", "form", "central", "breeze", "potatoes", "student", "sure", "sail", "wheat", "agree", "worried", "down", "cowboy", "plural", "pressure", "cabin", "prevent", "health", "third", "cat", "final", "cloth", "year", "meet", "clay", "automobile", "complex", "milk", "slept", "busy", "such", "collect", "doing", "writer", "giant", "applied", "military", "fully", "power", "proper", "source", "escape", "stopped", "unusual", "situation", "tales", "steel", "activity", "period", "ourselves", "ago", "seeing", "sea", "day", "victory", "quietly", "season", "only", "special", "gasoline", "past", "happened", "decide", "went", "due", "education", "section", "independent", "whispered", "faster", "jump", "result", "burst", "zoo", "by", "riding", "usually", "cup", "basket", "told", "large", "passage", "happy", "change", "saved", "box", "rest", "shut", "poor", "earth", "weight", "can", "noise", "green", "depth", "involved", "compare", "distance", "mathematics", "receive", "eat", "balloon", "carbon", "question", "mine", "hot", "dangerous", "meant", "myself", "rich", "customs", "find", "torn", "attack", "may", "somewhere", "recall", "grass", "realize", "dig", "almost", "sent", "met", "park", "engineer", "whatever", "silver", "jack", "changing", "bottle", "tail", "enough", "stretch", "asleep", "flow", "either", "cap", "reader", "share", "region", "behavior", "lie", "open", "rope", "negative", "prove", "husband", "harder", "chosen", "birds", "route", "sold", "summer", "construction", "manner", "tank", "how", "finally", "hidden", "aware", "advice", "tobacco", "represent", "close", "tape", "exclaimed", "pencil", "purple", "company", "motor", "light", "animal", "ten", "oil", "stock", "war", "orbit", "hay", "nothing", "private", "listen", "daily", "black", "look", "too", "strength", "wore", "appearance", "mission", "height", "hour", "huge", "everywhere", "recognize", "barn", "require", "cross", "road", "fence", "coal", "fun", "tent", "became", "mile", "occur", "forgotten", "trail", "cook", "old", "blue", "saw", "toward", "size", "mass", "sport", "made", "slide", "gave", "doubt", "yellow", "differ", "dirty", "shall", "stems", "want", "able", "ants", "spread", "struck", "go", "citizen", "foreign", "speed", "explore", "excellent", "pour", "fifteen", "they", "storm", "magnet", "ahead", "religious", "limited", "talk", "consonant", "trace", "business", "ship", "clothing", "speak", "would", "story", "effort", "town", "person", "both", "watch", "gradually", "speech", "bank", "found", "age", "instant", "tide", "brown", "labor", "frog", "electric", "knew", "guide", "former", "fill", "block", "laid", "necessary", "country", "give", "enemy", "fairly", "moving", "compound", "cold", "shine", "elephant", "organized", "leather", "scientific", "chamber", "man", "carry", "broke", "food", "wall", "leave", "fifty", "energy", "action", "magic", "body", "subject", "simply", "parts", "opposite", "many", "ice", "fighting", "native", "particles", "putting", "rubber", "nest", "men", "eight", "chest", "species", "connected", "rocky", "material", "great", "somebody", "water", "compass", "natural", "port", "grade", "must", "sudden", "spider", "desert", "writing", "pass", "choose", "title", "zero", "dawn", "father", "had", "physical", "globe", "grown", "peace", "hurry", "gone", "good", "belt", "correctly", "understanding", "herself", "blank", "general", "drew", "angle", "stop", "upward", "examine", "opportunity", "suddenly", "this", "simplest", "obtain", "difference", "selection", "here", "join", "memory", "vegetable", "view", "owner", "select", "doctor", "work", "shadow", "chicken", "fix", "people", "picture", "afraid", "equally", "then", "living", "acres", "dear", "fast", "sink", "bicycle", "official", "case", "slightly", "do", "any", "soft", "drawn", "dog", "dark", "week", "dish", "whale", "small", "none", "if", "support", "camp", "please", "make", "adjective", "gold", "lay", "nearly", "failed", "nearest", "principal", "barn", "rhyme", "driving", "circus", "couple", "wave", "off", "nest", "plate", "hardly", "grabbed", "struck", "thought", "rope", "disease", "happily", "desert", "hospital", "plan", "remember", "planet", "edge", "stove", "means", "burst", "exclaimed", "anyway", "reader", "fair", "town", "fine", "bottle", "that", "dollar", "every", "cost", "best", "lungs", "buried", "test", "news", "scene", "probably", "evidence", "throat", "character", "complex", "president", "information", "element", "slowly", "country", "club", "lake", "pie", "divide", "position", "shinning", "arrange", "chemical", "continent", "tea", "conversation", "victory", "trip", "beat", "am", "giant", "eaten", "spin", "sail", "personal", "smile", "appropriate", "until", "monkey", "difficult", "beneath", "pick", "track", "typical", "air", "ants", "material", "hand", "tune", "heading", "serious", "firm", "rabbit", "continent", "height", "discover", "chemical", "strange", "bill", "cat", "life", "information", "doubt", "independent", "major", "let", "fifty", "slabs", "ask", "handle", "lift", "famous", "palace", "particular", "helpful", "off", "language", "sold", "stop", "citizen", "worth", "forgot", "silk", "captain", "love", "week", "discover", "wonderful", "imagine", "thee", "universe", "living", "build", "donkey", "cause", "few", "hunter", "column", "available", "shadow", "lake", "movie", "bit", "snake", "machinery", "rubbed", "breakfast", "order", "now", "molecular", "dust", "frame", "street", "lost", "become", "reach", "kept", "naturally", "best", "courage", "clothes", "mountain", "fell", "decide", "shells", "above", "lack", "thy", "such", "friend", "already", "farm", "church", "central", "around", "hay", "shape", "manufacturing", "lot", "pool", "missing", "public", "massage", "writer", "town", "declared", "seeing", "this", "salt", "hill", "any", "my", "path", "tide", "everybody", "lift", "any", "identity", "wolf", "cat", "drew", "gasoline", "list", "corner", "aside", "handsome", "factor", "chain", "neighbor", "feathers", "put", "bowl", "wise", "spell", "nature", "anything", "experiment", "teach", "close", "horse", "plate", "hungry", "understanding", "gain", "run", "found", "slide", "won", "nose", "particularly", "loss", "top", "putting", "general", "therefore", "journey", "describe", "wing", "partly", "fuel", "tribe", "hunter", "piano", "string", "seeing", "stop", "pound", "indeed", "tomorrow", "coat", "history", "shot", "nearer", "greatly", "hidden", "settlers", "negative", "supply", "get", "appropriate", "lesson", "piece", "movie", "bus", "thread", "stiff", "try", "drew", "label", "me", "taught", "meet", "job", "exciting", "gulf", "base", "earth", "building", "tiny", "stared", "remarkable", "suit", "blood", "object", "basket", "customs", "ocean", "attempt", "gas", "post", "ill", "improve", "camera", "possible", "account", "right", "serve", "teach", "square", "poetry", "coffee", "extra", "below", "fence", "able", "forget", "deal", "slip", "very", "upon", "receive", "halfway", "given", "yet", "broad", "tired", "section", "poor", "kept", "chamber", "particles", "waste", "limited", "speak", "explore", "cotton", "information", "wheat", "settlers", "rich", "bag", "earlier", "log", "southern", "success", "merely", "dry", "slope", "gentle", "buffalo", "than", "double", "sister", "seems", "laugh", "active", "rapidly", "train", "cloth", "held", "weather", "gift", "fully", "explanation", "whole", "grew", "brave", "train", "simplest", "without", "cause", "carry", "speech", "screen", "pond", "younger", "spent", "accurate", "station", "triangle", "bowl", "take", "poet", "means", "introduced", "breathe", "pine", "dropped", "only", "at", "roof", "naturally", "symbol", "fuel", "plastic", "old", "tribe", "is", "seed", "driving", "dead", "flew", "owner", "suddenly", "seen", "mad", "suit", "disease", "belong", "alone", "that", "record", "instrument", "prove", "window", "written", "gold", "was", "recognize", "attack", "shaking", "mile", "goose", "either", "equator", "friendly", "dark", "complex", "slowly", "bridge", "tip", "press"};
+        String[] words = { "tonight", "paragraph", "own", "every", "strip", "lot", "younger", "themselves", "number",
+                "grow", "cut", "loss", "thumb", "wolf", "recent", "shelf", "managed", "drive", "tower", "sometime",
+                "perfectly", "lungs", "tool", "farther", "hide", "know", "liquid", "bet", "held", "property", "tall",
+                "list", "toy", "mad", "art", "form", "central", "breeze", "potatoes", "student", "sure", "sail",
+                "wheat", "agree", "worried", "down", "cowboy", "plural", "pressure", "cabin", "prevent", "health",
+                "third", "cat", "final", "cloth", "year", "meet", "clay", "automobile", "complex", "milk", "slept",
+                "busy", "such", "collect", "doing", "writer", "giant", "applied", "military", "fully", "power",
+                "proper", "source", "escape", "stopped", "unusual", "situation", "tales", "steel", "activity", "period",
+                "ourselves", "ago", "seeing", "sea", "day", "victory", "quietly", "season", "only", "special",
+                "gasoline", "past", "happened", "decide", "went", "due", "education", "section", "independent",
+                "whispered", "faster", "jump", "result", "burst", "zoo", "by", "riding", "usually", "cup", "basket",
+                "told", "large", "passage", "happy", "change", "saved", "box", "rest", "shut", "poor", "earth",
+                "weight", "can", "noise", "green", "depth", "involved", "compare", "distance", "mathematics", "receive",
+                "eat", "balloon", "carbon", "question", "mine", "hot", "dangerous", "meant", "myself", "rich",
+                "customs", "find", "torn", "attack", "may", "somewhere", "recall", "grass", "realize", "dig", "almost",
+                "sent", "met", "park", "engineer", "whatever", "silver", "jack", "changing", "bottle", "tail", "enough",
+                "stretch", "asleep", "flow", "either", "cap", "reader", "share", "region", "behavior", "lie", "open",
+                "rope", "negative", "prove", "husband", "harder", "chosen", "birds", "route", "sold", "summer",
+                "construction", "manner", "tank", "how", "finally", "hidden", "aware", "advice", "tobacco", "represent",
+                "close", "tape", "exclaimed", "pencil", "purple", "company", "motor", "light", "animal", "ten", "oil",
+                "stock", "war", "orbit", "hay", "nothing", "private", "listen", "daily", "black", "look", "too",
+                "strength", "wore", "appearance", "mission", "height", "hour", "huge", "everywhere", "recognize",
+                "barn", "require", "cross", "road", "fence", "coal", "fun", "tent", "became", "mile", "occur",
+                "forgotten", "trail", "cook", "old", "blue", "saw", "toward", "size", "mass", "sport", "made", "slide",
+                "gave", "doubt", "yellow", "differ", "dirty", "shall", "stems", "want", "able", "ants", "spread",
+                "struck", "go", "citizen", "foreign", "speed", "explore", "excellent", "pour", "fifteen", "they",
+                "storm", "magnet", "ahead", "religious", "limited", "talk", "consonant", "trace", "business", "ship",
+                "clothing", "speak", "would", "story", "effort", "town", "person", "both", "watch", "gradually",
+                "speech", "bank", "found", "age", "instant", "tide", "brown", "labor", "frog", "electric", "knew",
+                "guide", "former", "fill", "block", "laid", "necessary", "country", "give", "enemy", "fairly", "moving",
+                "compound", "cold", "shine", "elephant", "organized", "leather", "scientific", "chamber", "man",
+                "carry", "broke", "food", "wall", "leave", "fifty", "energy", "action", "magic", "body", "subject",
+                "simply", "parts", "opposite", "many", "ice", "fighting", "native", "particles", "putting", "rubber",
+                "nest", "men", "eight", "chest", "species", "connected", "rocky", "material", "great", "somebody",
+                "water", "compass", "natural", "port", "grade", "must", "sudden", "spider", "desert", "writing", "pass",
+                "choose", "title", "zero", "dawn", "father", "had", "physical", "globe", "grown", "peace", "hurry",
+                "gone", "good", "belt", "correctly", "understanding", "herself", "blank", "general", "drew", "angle",
+                "stop", "upward", "examine", "opportunity", "suddenly", "this", "simplest", "obtain", "difference",
+                "selection", "here", "join", "memory", "vegetable", "view", "owner", "select", "doctor", "work",
+                "shadow", "chicken", "fix", "people", "picture", "afraid", "equally", "then", "living", "acres", "dear",
+                "fast", "sink", "bicycle", "official", "case", "slightly", "do", "any", "soft", "drawn", "dog", "dark",
+                "week", "dish", "whale", "small", "none", "if", "support", "camp", "please", "make", "adjective",
+                "gold", "lay", "nearly", "failed", "nearest", "principal", "barn", "rhyme", "driving", "circus",
+                "couple", "wave", "off", "nest", "plate", "hardly", "grabbed", "struck", "thought", "rope", "disease",
+                "happily", "desert", "hospital", "plan", "remember", "planet", "edge", "stove", "means", "burst",
+                "exclaimed", "anyway", "reader", "fair", "town", "fine", "bottle", "that", "dollar", "every", "cost",
+                "best", "lungs", "buried", "test", "news", "scene", "probably", "evidence", "throat", "character",
+                "complex", "president", "information", "element", "slowly", "country", "club", "lake", "pie", "divide",
+                "position", "shinning", "arrange", "chemical", "continent", "tea", "conversation", "victory", "trip",
+                "beat", "am", "giant", "eaten", "spin", "sail", "personal", "smile", "appropriate", "until", "monkey",
+                "difficult", "beneath", "pick", "track", "typical", "air", "ants", "material", "hand", "tune",
+                "heading", "serious", "firm", "rabbit", "continent", "height", "discover", "chemical", "strange",
+                "bill", "cat", "life", "information", "doubt", "independent", "major", "let", "fifty", "slabs", "ask",
+                "handle", "lift", "famous", "palace", "particular", "helpful", "off", "language", "sold", "stop",
+                "citizen", "worth", "forgot", "silk", "captain", "love", "week", "discover", "wonderful", "imagine",
+                "thee", "universe", "living", "build", "donkey", "cause", "few", "hunter", "column", "available",
+                "shadow", "lake", "movie", "bit", "snake", "machinery", "rubbed", "breakfast", "order", "now",
+                "molecular", "dust", "frame", "street", "lost", "become", "reach", "kept", "naturally", "best",
+                "courage", "clothes", "mountain", "fell", "decide", "shells", "above", "lack", "thy", "such", "friend",
+                "already", "farm", "church", "central", "around", "hay", "shape", "manufacturing", "lot", "pool",
+                "missing", "public", "massage", "writer", "town", "declared", "seeing", "this", "salt", "hill", "any",
+                "my", "path", "tide", "everybody", "lift", "any", "identity", "wolf", "cat", "drew", "gasoline", "list",
+                "corner", "aside", "handsome", "factor", "chain", "neighbor", "feathers", "put", "bowl", "wise",
+                "spell", "nature", "anything", "experiment", "teach", "close", "horse", "plate", "hungry",
+                "understanding", "gain", "run", "found", "slide", "won", "nose", "particularly", "loss", "top",
+                "putting", "general", "therefore", "journey", "describe", "wing", "partly", "fuel", "tribe", "hunter",
+                "piano", "string", "seeing", "stop", "pound", "indeed", "tomorrow", "coat", "history", "shot", "nearer",
+                "greatly", "hidden", "settlers", "negative", "supply", "get", "appropriate", "lesson", "piece", "movie",
+                "bus", "thread", "stiff", "try", "drew", "label", "me", "taught", "meet", "job", "exciting", "gulf",
+                "base", "earth", "building", "tiny", "stared", "remarkable", "suit", "blood", "object", "basket",
+                "customs", "ocean", "attempt", "gas", "post", "ill", "improve", "camera", "possible", "account",
+                "right", "serve", "teach", "square", "poetry", "coffee", "extra", "below", "fence", "able", "forget",
+                "deal", "slip", "very", "upon", "receive", "halfway", "given", "yet", "broad", "tired", "section",
+                "poor", "kept", "chamber", "particles", "waste", "limited", "speak", "explore", "cotton", "information",
+                "wheat", "settlers", "rich", "bag", "earlier", "log", "southern", "success", "merely", "dry", "slope",
+                "gentle", "buffalo", "than", "double", "sister", "seems", "laugh", "active", "rapidly", "train",
+                "cloth", "held", "weather", "gift", "fully", "explanation", "whole", "grew", "brave", "train",
+                "simplest", "without", "cause", "carry", "speech", "screen", "pond", "younger", "spent", "accurate",
+                "station", "triangle", "bowl", "take", "poet", "means", "introduced", "breathe", "pine", "dropped",
+                "only", "at", "roof", "naturally", "symbol", "fuel", "plastic", "old", "tribe", "is", "seed", "driving",
+                "dead", "flew", "owner", "suddenly", "seen", "mad", "suit", "disease", "belong", "alone", "that",
+                "record", "instrument", "prove", "window", "written", "gold", "was", "recognize", "attack", "shaking",
+                "mile", "goose", "either", "equator", "friendly", "dark", "complex", "slowly", "bridge", "tip",
+                "press" };
 
         boolean play = true;
-        
+
         while (play) {
             int wrongAttempts = 0;
 
@@ -166,14 +249,14 @@ public class Hangman {
             System.out.println("Y/N");
             String condition;
             condition = input.nextLine();
-            if (condition.equals("Y") || condition.equals("y")){
+            if (condition.equals("Y") || condition.equals("y")) {
                 play = true;
-            } else if (condition.equals("N") || condition.equals("n")){
+            } else if (condition.equals("N") || condition.equals("n")) {
                 play = false;
             } else {
                 System.out.println("Invalid input, shutting down.");
             }
         }
-        
+
     }
 }
